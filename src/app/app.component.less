@@ -1,0 +1,26 @@
+@fontsHeader: Arial, Helvetica, sans-serif;
+@fontsInput: Cambria, Georgia, serif;
+h1 {
+  color: #369;
+  font-family: @fontsHeader;
+  font-size: 250%;
+}
+h2,
+h3 {
+  color: #444;
+  font-family: @fontsHeader;
+  font-weight: lighter;
+}
+body {
+  margin: 2em;
+}
+body,
+input[type="text"],
+button {
+  color: #333;
+  font-family: @fontsInput;
+}
+/* everywhere else */
+* {
+  font-family: @fontsHeader;
+}
