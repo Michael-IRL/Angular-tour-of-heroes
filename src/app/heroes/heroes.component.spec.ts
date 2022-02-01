@@ -73,4 +73,10 @@ describe('HeroesComponent', () => {
 
     expect(compiled.querySelector('#displayName')?.textContent).toContain('test');
   })
+
+  it('should contain a list', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    
+    expect(compiled.querySelector('ul')).toBeTruthy();
+  })
 });
