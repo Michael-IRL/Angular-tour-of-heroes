@@ -63,15 +63,14 @@ describe('HeroesComponent', () => {
   it('should have a name input box', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     const input = compiled.querySelector('#name') as HTMLInputElement;
-    console.log(compiled.querySelector('#displayName')?.textContent);
+    
     fixture.detectChanges();
     input.value = 'test';
 
     input.dispatchEvent(new Event('input'));
 
     fixture.detectChanges();
-    console.log(compiled.querySelector('#displayName')?.textContent);
+
     expect(compiled.querySelector('#displayName')?.textContent).toContain('test');
-  
   })
 });
