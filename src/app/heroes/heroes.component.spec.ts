@@ -29,6 +29,7 @@ describe('HeroesComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(HeroesComponent);
     component = fixture.componentInstance;
+    component.selectedHero = hero;
     fixture.detectChanges();
   });
 
@@ -41,23 +42,30 @@ describe('HeroesComponent', () => {
     expect(compiled.querySelector('h2')).toBeTruthy();
   })
 
-  it('should contain a uppercase name in h2 element', () => {
+  it('should contain a uppercase name in selected hero element', () => {
+    const compiled = fixture.nativeElement as HTMLElement;    
+    expect(compiled.querySelector('#selectedHeader')?.textContent).toContain(hero.name.toUpperCase());
+  })
+
+  it('should not render details with no selected hero', () => {
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h2')?.textContent).toContain(hero.name.toUpperCase());
+    component.selectedHero = undefined;
+    fixture.detectChanges();
+    expect(compiled.querySelector('#selectedHeader')).toBeFalsy();
   })
 
   it('should contain a hero', () => {
-    expect(component.hero).toEqual(hero)
+    expect(component.selectedHero).toEqual(hero)
   })
 
   it('should render id field', () => {
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('div')?.textContent).toContain(hero.id);
+    expect(compiled.querySelector('#displayId')?.textContent).toContain(hero.id);
   })
 
   it('should render name field', () => {
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('div:nth-of-type(2)')?.textContent).toContain(hero.name);
+    expect(compiled.querySelector('#displayName')?.textContent).toContain(hero.name);
   })
 
   it('should have a name input box', () => {
@@ -72,5 +80,11 @@ describe('HeroesComponent', () => {
     fixture.detectChanges();
 
     expect(compiled.querySelector('#displayName')?.textContent).toContain('test');
+  })
+
+  it('should contain a list', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    
+    expect(compiled.querySelector('li')).toBeTruthy();
   })
 });
