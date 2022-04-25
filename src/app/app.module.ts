@@ -13,6 +13,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { InMemoryDataService } from './in-memory-data.service';
 import { HeroSearchComponent } from './hero-search/hero-search.component';
 import { HeroFormComponent } from './hero-form/hero-form.component';
+import { FormResponseComponent } from './hero-form/form-response/form-response.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { HeroFormComponent } from './hero-form/hero-form.component';
     DashboardComponent,
     HeroSearchComponent,
     HeroFormComponent,
+    FormResponseComponent,
   ],
   imports: [
     BrowserModule,
