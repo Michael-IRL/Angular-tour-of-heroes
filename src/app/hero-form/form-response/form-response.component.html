@@ -1,0 +1,17 @@
+<h2>You submitted the following:</h2>
+<div class="row">
+  <div class="col-xs-3">Name</div>
+  <div class="col-xs-9">{{ hero?.name }}</div>
+</div>
+<div class="row">
+  <div class="col-xs-3">Alter Ego</div>
+  <div class="col-xs-9">{{ hero?.alterEgo }}</div>
+</div>
+<div class="row">
+  <div class="col-xs-3">Power</div>
+  <div class="col-xs-9">{{ hero?.power }}</div>
+</div>
+<br />
+<button type="button" class="btn btn-primary" (click)="onEditClick()">
+  Edit
+</button>
