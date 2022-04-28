@@ -5,11 +5,21 @@ import { FormsModule } from '@angular/forms';
 import { HeroesComponent } from './heroes.component';
 
 import { Hero } from '../hero';
+import { Observable, of } from 'rxjs';
+import { HeroService } from '../hero.service';
 
 const hero: Hero = {
   id: 1,
-  name: 'Windstorm'
+  power: 'Wind',
+  name: 'Windstorm',
 };
+
+class MockHeroService {
+  getHeros(): Observable<Hero[]> {
+    let heroes: Hero[] = [hero];
+    return of(heroes);
+  }
+}
 
 describe('HeroesComponent', () => {
   let component: HeroesComponent;
@@ -17,19 +27,19 @@ describe('HeroesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports:[FormsModule],
+      imports: [FormsModule],
       declarations: [HeroesComponent],
       providers: [
-	{ provide: ComponentFixtureAutoDetect, useValue: true }
-  ]
-    })
-    .compileComponents();
+        { provide: ComponentFixtureAutoDetect, useValue: true },
+        HeroesComponent,
+        { provide: HeroService, useClass: MockHeroService },
+      ],
+    }).compileComponents();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(HeroesComponent);
     component = fixture.componentInstance;
-    component.selectedHero = hero;
     fixture.detectChanges();
   });
 
@@ -40,51 +50,11 @@ describe('HeroesComponent', () => {
   it('should contain a h2 element', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('h2')).toBeTruthy();
-  })
-
-  it('should contain a uppercase name in selected hero element', () => {
-    const compiled = fixture.nativeElement as HTMLElement;    
-    expect(compiled.querySelector('#selectedHeader')?.textContent).toContain(hero.name.toUpperCase());
-  })
-
-  it('should not render details with no selected hero', () => {
-    const compiled = fixture.nativeElement as HTMLElement;
-    component.selectedHero = undefined;
-    fixture.detectChanges();
-    expect(compiled.querySelector('#selectedHeader')).toBeFalsy();
-  })
-
-  it('should contain a hero', () => {
-    expect(component.selectedHero).toEqual(hero)
-  })
-
-  it('should render id field', () => {
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('#displayId')?.textContent).toContain(hero.id);
-  })
-
-  it('should render name field', () => {
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('#displayName')?.textContent).toContain(hero.name);
-  })
-
-  it('should have a name input box', () => {
-    const compiled = fixture.nativeElement as HTMLElement;
-    const input = compiled.querySelector('#name') as HTMLInputElement;
-    
-    fixture.detectChanges();
-    input.value = 'test';
-
-    input.dispatchEvent(new Event('input'));
-
-    fixture.detectChanges();
-
-    expect(compiled.querySelector('#displayName')?.textContent).toContain('test');
-  })
+  });
 
   it('should contain a list', () => {
     const compiled = fixture.nativeElement as HTMLElement;
-    
+
     expect(compiled.querySelector('li')).toBeTruthy();
-  })
+  });
 });

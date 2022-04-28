@@ -1,6 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Observable, of } from 'rxjs';
+import { Hero } from '../hero';
+import { HeroService } from '../hero.service';
 
 import { DashboardComponent } from './dashboard.component';
+
+class MockHeroService {
+  getHeros(): Observable<Hero[]> {
+    let heroes: Hero[] = [];
+    return of(heroes);
+  }
+}
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -8,9 +18,12 @@ describe('DashboardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DashboardComponent ]
-    })
-    .compileComponents();
+      declarations: [DashboardComponent],
+      providers: [
+        DashboardComponent,
+        { provide: HeroService, useClass: MockHeroService },
+      ],
+    }).compileComponents();
   });
 
   beforeEach(() => {
